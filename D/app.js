@@ -419,7 +419,7 @@
     messagesEl.innerHTML = "";
     if (chat.length === 0) {
       const welcome =
-        "I’m Nero. Tell me what you’re studying, and I’ll help you stay on track: a quick plan, a concept explanation, or a short pep talk.";
+        "I’m Nero. Tell me what you’re studying and what you need (plan, explanation, or next steps).";
       chat = [{ role: "nero", text: welcome, ts: Date.now() }];
       persistChat();
     }
@@ -456,30 +456,34 @@
     const t = userText.toLowerCase();
 
     if (blocked.some((w) => t.includes(w))) {
-      return "Let’s keep this a focus space. Tell me what topic you’re studying and what you need next (plan, explanation, practice, or motivation).";
+      return "Let’s stay focused. What subject are you studying, and what’s the next task?";
     }
 
     if (t.includes("plan") || t.includes("schedule") || t.includes("today")) {
-      return "Quick plan: 1) Choose one objective. 2) Do a 25‑minute focus session. 3) Write a 2‑line summary. 4) Do 5 minutes of review. What subject + objective are you aiming for?";
+      return "Plan: pick 1 objective → 25 min focus → 2-line summary → 5 min review. What’s your objective?";
     }
 
     if (t.includes("motivat") || t.includes("tired") || t.includes("procrast")) {
-      return "You don’t need to feel ready — you just need to start. Pick the smallest next action (one problem, one paragraph, one flashcard set). Want a 25‑minute focus sprint right now?";
+      return "Start small. Choose one action you can finish in 5 minutes. Want to start a 25‑minute focus session?";
     }
 
     if (t.includes("explain") || t.includes("help") || t.includes("understand") || t.includes("how")) {
-      return "Tell me the exact concept and where you got stuck. I’ll explain it simply, then we’ll do 2 quick checks to make sure it clicked.";
+      return "What concept, and where exactly are you stuck (one sentence)?";
     }
 
     if (t.includes("pomodoro") || t.includes("timer")) {
-      return "Pomodoro works best when the task is clear. Before you start, write: “In this 25 minutes, I will ___.” What will you do in the next session?";
+      return "Before you start: “In this 25 minutes, I will ____.” Fill it in.";
     }
 
     if (t.includes("task") || t.includes("todo") || t.includes("to-do")) {
-      return "Make tasks tiny and concrete. Example: “Read pages 12–15 and write 3 bullet notes.” What’s one task you can add right now?";
+      return "Make it concrete. Example: “Read pages 12–15 and write 3 bullets.” What’s one task you’ll do next?";
     }
 
-    return "What are you studying right now, and what would make this next 25 minutes a win?";
+    if (t.includes("hi") || t === "hello" || t === "hey") {
+      return "What are you studying, and what’s your next step?";
+    }
+
+    return "What are you studying right now, and what’s your next step?";
   }
 
   chatForm.addEventListener("submit", (e) => {
