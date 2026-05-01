@@ -48,48 +48,29 @@
     <main id="main" class="main">
       <div class="container">
         <!-- HOME -->
-        <section class="page hero active" id="page-home" data-page="home" aria-labelledby="homeTitle">
-          <div class="hero-grid">
-            <div class="hero-card">
-              <div class="kicker">A focused study platform</div>
-              <h1 id="homeTitle">Study With Nero</h1>
-              <p class="sub">
-                One clean place for your timer, tasks, and a calm study assistant — designed to keep you from
-                tab-hopping.
-              </p>
-              <div class="hero-actions">
-                <a class="btn btn-primary" href="#/study" id="startStudyingBtn">Start Studying</a>
-                <a class="btn" href="#/nero">Ask Nero</a>
-              </div>
-              <p class="mini">
-                Tip: press
-                <kbd>Enter</kbd>
-                to send in chat. Use
-                <kbd>Shift</kbd>+<kbd>Enter</kbd>
-                for a new line.
-              </p>
+        <section class="page active" id="page-home" data-page="home" aria-labelledby="homeTitle">
+          <div class="hero">
+            <h1 id="homeTitle">Study With Nero</h1>
+            <p>Your focus companion for deep work sessions.</p>
+            <a class="btn btn-primary" href="#/study" id="startStudyingBtn">Start Studying</a>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Pomodoro</h3>
+              <p class="hint" style="margin-top: 10px">Open the Study page to start the timer.</p>
             </div>
 
-            <div class="hero-card" aria-label="Quick overview">
-              <div class="statbox">
-                <div class="stat">
-                  <strong>Pomodoro</strong>
-                  <span>25 / 5 default</span>
-                </div>
-                <div class="stat">
-                  <strong>To‑dos</strong>
-                  <span>Saved locally</span>
-                </div>
-                <div class="stat">
-                  <strong>Focus mode</strong>
-                  <span>Calm dark theme</span>
-                </div>
-                <div class="stat">
-                  <strong>Nero</strong>
-                  <span>Study-only help</span>
-                </div>
-              </div>
-              <p class="hint" style="margin: 14px 0 0">Everything runs in your browser (no accounts, no tracking).</p>
+            <div class="card">
+              <h3>Tasks</h3>
+              <input placeholder="Add task..." aria-label="Add task (preview)" />
+              <p class="hint" style="margin-top: 10px">Use the Study page to manage your real task list.</p>
+            </div>
+
+            <div class="card chat">
+              <h3>Nero AI</h3>
+              <div class="message bot">Focus. What are you studying?</div>
+              <p class="hint" style="margin-top: 10px">Open the Nero page to chat.</p>
             </div>
           </div>
         </section>
