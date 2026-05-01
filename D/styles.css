@@ -1,0 +1,910 @@
+/* =========================
+   THEME TOKENS
+========================= */
+:root {
+  --bg: #070c12;
+  --bg2: #071018;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel2: rgba(255, 255, 255, 0.08);
+  --stroke: rgba(255, 255, 255, 0.1);
+  --stroke2: rgba(255, 255, 255, 0.14);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+  --muted2: rgba(255, 255, 255, 0.55);
+  --accent: #26f7c7; /* cyan-neon */
+  --accent2: #2cff6a; /* neon green */
+  --danger: #ff4d6d;
+  --radius: 16px;
+  --radius2: 22px;
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  --shadow2: 0 8px 26px rgba(0, 0, 0, 0.38);
+  --container: 1100px;
+  --navH: 68px;
+}
+
+/* =========================
+   BASE RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #0b0f17;
+  color: #e6eaf2;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(0, 255, 163, 0.06), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(120, 80, 255, 0.05), transparent 50%);
+  animation: floatGlow 12s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes floatGlow {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+/* =========================
+   GLOBAL LAYOUT
+========================= */
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f5f7ff;
+}
+
+p {
+  color: #a9b2c7;
+}
+
+/* Preserve existing muted text look in app hints */
+.hint,
+.sub,
+.mini,
+.brand-sub {
+  color: #a9b2c7;
+}
+
+/* =========================
+   HERO SECTION (optional)
+========================= */
+/* Keep existing hero layout; these are safe additions. */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  max-width: 500px;
+  margin-bottom: 24px;
+}
+
+/* =========================
+   BUTTONS (base)
+========================= */
+.btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00e5ff, #00ffa3);
+  color: #0b0f17;
+  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.15);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 229, 255, 0.25);
+}
+
+/* =========================
+   CARDS (DASHBOARD UI)
+========================= */
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  transition: 0.2s ease;
+  border-color: rgba(0, 229, 255, 0.2);
+}
+
+button,
+.card {
+  transition: all 0.2s ease;
+}
+
+/* Map existing app panels to card style without changing HTML */
+.panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   GRID LAYOUT
+========================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* =========================
+   INPUTS (TODO / CHAT)
+========================= */
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #e6eaf2;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+}
+
+/* =========================
+   CHAT UI (NERO)
+========================= */
+/* Your markup uses .messages and .bubble; add aliases for .message/.bot */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 12px 14px;
+  border-radius: 14px;
+  max-width: 80%;
+  font-size: 14px;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #00e5ff, #00ffa3);
+  color: #0b0f17;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Map existing bubbles to the message palette */
+.bubble.user {
+  background: linear-gradient(135deg, #00e5ff, #00ffa3);
+  color: #0b0f17;
+}
+
+.bubble.nero {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   TIMER DISPLAY
+========================= */
+.timer {
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0;
+  letter-spacing: 2px;
+}
+
+/* Map existing timer element */
+.time {
+  letter-spacing: 2px;
+}
+
+/* =========================
+   SCROLLBAR (OPTIONAL POLISH)
+========================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================
+   FLASHCARDS (compat)
+========================= */
+.flashcard {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+}
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+.front,
+.back {
+  position: absolute;
+  backface-visibility: hidden;
+}
+.back {
+  transform: rotateY(180deg);
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 12px;
+  background: var(--panel2);
+  border: 1px solid var(--stroke2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  z-index: 9999;
+}
+.skip:focus {
+  left: 12px;
+  outline: 2px solid rgba(38, 247, 199, 0.65);
+  outline-offset: 2px;
+}
+
+/* Top bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--navH);
+  display: flex;
+  align-items: center;
+  background: rgba(7, 12, 18, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 190px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 45%),
+    linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 0 0 1px rgba(38, 247, 199, 0.25), 0 14px 34px rgba(38, 247, 199, 0.18);
+}
+
+.brand-title {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: 0.98rem;
+}
+.brand-sub {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted2);
+  margin-top: 2px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+.chip:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.07);
+}
+.chip[aria-current="page"] {
+  background: rgba(38, 247, 199, 0.1);
+  border-color: rgba(38, 247, 199, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  user-select: none;
+}
+.toggle input {
+  appearance: none;
+  width: 36px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  position: relative;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.toggle input::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  transition: left 160ms ease;
+}
+.toggle input:checked {
+  background: rgba(38, 247, 199, 0.22);
+  border-color: rgba(38, 247, 199, 0.28);
+}
+.toggle input:checked::after {
+  left: 17px;
+  background: rgba(255, 255, 255, 0.92);
+}
+.toggle input:focus-visible {
+  outline: 2px solid rgba(38, 247, 199, 0.65);
+  outline-offset: 2px;
+}
+
+/* Main */
+.main {
+  padding: 18px 0 40px;
+}
+
+.page {
+  display: none;
+}
+.page.active {
+  display: block;
+}
+
+/* Home / hero */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding-top: 14px;
+}
+@media (min-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+    padding-top: 22px;
+  }
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow2);
+  padding: 18px;
+}
+
+.kicker {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+h1 {
+  margin: 10px 0 8px;
+  font-size: clamp(1.9rem, 5.2vw, 2.6rem);
+  letter-spacing: -0.04em;
+}
+
+.sub {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 60ch;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.mini {
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.88rem;
+}
+
+.statbox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.stat {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  border-radius: 18px;
+  padding: 14px 14px 13px;
+}
+.stat strong {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.stat span {
+  display: block;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.86rem;
+  margin-top: 4px;
+}
+
+/* Dashboard layout */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding-top: 12px;
+}
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 18px;
+    padding-top: 18px;
+  }
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow2);
+  padding: 18px;
+}
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.panel h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+.hint {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.86rem;
+  margin-top: 6px;
+}
+
+/* Timer */
+.timer-face {
+  display: grid;
+  place-items: center;
+  padding: 16px 0 8px;
+}
+
+/* Pomodoro ring */
+.pomodoro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring {
+  transform: rotate(-90deg);
+}
+
+.bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 10;
+}
+
+.progress {
+  fill: none;
+  stroke: url(#grad);
+  stroke: #00e5ff;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 440;
+  stroke-dashoffset: 0;
+  transition: 1s linear;
+}
+.time {
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.5rem, 7vw, 3.2rem);
+  letter-spacing: -0.06em;
+  font-weight: 600;
+}
+.mode-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 8px;
+}
+.seg {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 4px;
+}
+.seg button {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 8px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.86rem;
+}
+.seg button[aria-pressed="true"] {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(38, 247, 199, 0.1);
+  border: 1px solid rgba(38, 247, 199, 0.22);
+}
+.seg button:focus-visible {
+  outline: 2px solid rgba(38, 247, 199, 0.65);
+  outline-offset: 2px;
+}
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 14px;
+}
+
+/* Buttons */
+.btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 14px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn:focus-visible {
+  outline: 2px solid rgba(38, 247, 199, 0.65);
+  outline-offset: 2px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, rgba(38, 247, 199, 0.25), rgba(44, 255, 106, 0.2));
+  border-color: rgba(38, 247, 199, 0.28);
+}
+.btn-danger {
+  background: rgba(255, 77, 109, 0.12);
+  border-color: rgba(255, 77, 109, 0.26);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Todos */
+.todo-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.field {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+.field input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+}
+.field input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+.field:focus-within {
+  border-color: rgba(38, 247, 199, 0.26);
+}
+
+.todos {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: grid;
+  gap: 10px;
+}
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.todo-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.todo label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  min-width: 0;
+}
+.todo input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+.todo-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.todo.done .todo-text {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.6);
+}
+.icon-btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.82);
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid rgba(38, 247, 199, 0.65);
+  outline-offset: 2px;
+}
+
+/* Chat */
+.chat {
+  display: grid;
+  gap: 12px;
+}
+.messages {
+  height: min(54vh, 520px);
+  overflow: auto;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.bubble {
+  max-width: 82%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  margin: 8px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+}
+.bubble.user {
+  margin-left: auto;
+  background: rgba(38, 247, 199, 0.1);
+  border-color: rgba(38, 247, 199, 0.22);
+}
+.bubble.nero {
+  background: rgba(255, 255, 255, 0.05);
+}
+.meta {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.chat-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+.chat-form textarea {
+  min-height: 44px;
+  max-height: 140px;
+  resize: vertical;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  outline: none;
+}
+.chat-form textarea:focus {
+  border-color: rgba(38, 247, 199, 0.26);
+}
+
+/* Focus mode tweaks */
+body.focus {
+  background: radial-gradient(1100px 700px at 20% -10%, rgba(38, 247, 199, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 90% 10%, rgba(44, 255, 106, 0.06), transparent 55%),
+    linear-gradient(180deg, #050a10, #04070b);
+}
+body.focus .topbar {
+  background: rgba(5, 10, 16, 0.78);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Small screens: keep nav usable */
+@media (max-width: 520px) {
+  .brand {
+    min-width: unset;
+  }
+  .brand-sub {
+    display: none;
+  }
+  .nav {
+    gap: 6px;
+  }
+  .chip {
+    padding: 8px 10px;
+  }
+}

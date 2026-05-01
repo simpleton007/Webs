@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#071018" />
+    <title>STUDY WITH NERO!</title>
+    <meta
+      name="description"
+      content="A minimal, distraction-free study space: Pomodoro, focus mode, tasks, and a study-only assistant."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./js/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#/home" aria-label="STUDY WITH NERO! — Home">
+          <span class="dot" aria-hidden="true"></span>
+          <span>
+            <span class="brand-title">STUDY WITH NERO!</span>
+            <span class="brand-sub">Stay here. Stay focused.</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a class="chip" href="#/home" data-nav="home">Home</a>
+          <a class="chip" href="#/upload" data-nav="upload">Upload</a>
+          <a class="chip" href="#/output" data-nav="output">Output</a>
+          <a class="chip" href="#/flashcards" data-nav="flashcards">Flashcards</a>
+          <a class="chip" href="#/quiz" data-nav="quiz">Quiz</a>
+          <a class="chip" href="#/nero" data-nav="nero">Nero</a>
+          <a class="chip" href="#/profile" data-nav="profile">Profile</a>
+        </nav>
+
+        <div class="right-actions">
+          <label class="toggle" title="Focus mode">
+            <span>Focus</span>
+            <input id="focusToggle" type="checkbox" />
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="container">
+        <!-- HOME -->
+        <section class="page active" id="page-home" data-page="home" aria-labelledby="homeTitle">
+          <div class="hero">
+            <h1 id="homeTitle">STUDY WITH NERO!</h1>
+            <p>Your focus companion for deep work sessions.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#/upload" id="startStudyingBtn">Upload Document</a>
+              <a class="btn" href="#/study">Open Dashboard</a>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Pomodoro</h3>
+              <p class="hint" style="margin-top: 10px">Open the Study page to start the timer.</p>
+            </div>
+
+            <div class="card">
+              <h3>Tasks</h3>
+              <input placeholder="Add task..." aria-label="Add task (preview)" />
+              <p class="hint" style="margin-top: 10px">Use the Study page to manage your real task list.</p>
+            </div>
+
+            <div class="card chat">
+              <h3>Nero AI</h3>
+              <div class="message bot">Focus. What are you studying?</div>
+              <p class="hint" style="margin-top: 10px">Open the Nero page to chat.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- UPLOAD -->
+        <section class="page" id="page-upload" data-page="upload" aria-labelledby="uploadTitle">
+          <div class="grid">
+            <section class="panel" aria-label="Upload document">
+              <header class="panel-header">
+                <div>
+                  <h2 id="uploadTitle">Upload Document</h2>
+                  <div class="hint">PDF, DOCX, or TXT. Extract → generate outputs.</div>
+                </div>
+              </header>
+
+              <div class="stack">
+                <input id="docFile" type="file" accept=".pdf,.docx,.txt,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                <div class="row">
+                  <button class="btn btn-primary" type="button" id="processDocBtn">Process</button>
+                  <button class="btn" type="button" id="clearDocBtn">Clear</button>
+                </div>
+                <div class="hint" id="uploadStatus" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="Recent documents">
+              <header class="panel-header">
+                <div>
+                  <h2>Documents</h2>
+                  <div class="hint">Saved per user (mock login supported).</div>
+                </div>
+              </header>
+              <ul class="list" id="docList" aria-label="Uploaded documents"></ul>
+            </section>
+          </div>
+        </section>
+
+        <!-- OUTPUT -->
+        <section class="page" id="page-output" data-page="output" aria-labelledby="outputTitle">
+          <div class="grid">
+            <section class="panel" aria-label="Study output">
+              <header class="panel-header">
+                <div>
+                  <h2 id="outputTitle">Study Output</h2>
+                  <div class="hint">Summary + key points for the selected document.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <div class="pill-row">
+                  <button class="btn" type="button" data-output-tab="summary">Summary</button>
+                  <button class="btn" type="button" data-output-tab="points">Key points</button>
+                </div>
+                <div class="output" id="outputSummary"></div>
+                <div class="output" id="outputPoints" hidden></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="Actions">
+              <header class="panel-header">
+                <div>
+                  <h2>Actions</h2>
+                  <div class="hint">Build flashcards and quiz from this doc.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <button class="btn btn-primary" type="button" id="goFlashcardsBtn">Open Flashcards</button>
+                <button class="btn btn-primary" type="button" id="goQuizBtn">Open Quiz</button>
+                <div class="hint" id="activeDocHint"></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- FLASHCARDS -->
+        <section class="page" id="page-flashcards" data-page="flashcards" aria-labelledby="flashcardsTitle">
+          <section class="panel" aria-label="Flashcards viewer">
+            <header class="panel-header">
+              <div>
+                <h2 id="flashcardsTitle">Flashcards Viewer</h2>
+                <div class="hint">Click to flip. Use next/previous.</div>
+              </div>
+              <div class="row">
+                <button class="btn" type="button" id="prevCardBtn">Prev</button>
+                <button class="btn" type="button" id="nextCardBtn">Next</button>
+              </div>
+            </header>
+            <div class="flashcard-wrap">
+              <!-- Compatibility with requested snippet -->
+              <div id="flashcard" class="sr-only"></div>
+              <button class="flashcard" type="button" id="flashcardBtn" aria-label="Flashcard (click to flip)">
+                <div class="flashcard-inner" id="flashcardInner">
+                  <div class="flashcard-face front">
+                    <div class="kicker">Question</div>
+                    <div class="fc-text" id="fcQ"></div>
+                  </div>
+                  <div class="flashcard-face back">
+                    <div class="kicker">Answer</div>
+                    <div class="fc-text" id="fcA"></div>
+                  </div>
+                </div>
+              </button>
+              <div class="hint" id="flashcardMeta"></div>
+            </div>
+          </section>
+        </section>
+
+        <!-- QUIZ -->
+        <section class="page" id="page-quiz" data-page="quiz" aria-labelledby="quizTitle">
+          <section class="panel" aria-label="Quiz">
+            <header class="panel-header">
+              <div>
+                <h2 id="quizTitle">Quiz Section</h2>
+                <div class="hint">5–10 multiple choice questions.</div>
+              </div>
+              <button class="btn" type="button" id="resetQuizBtn">Reset</button>
+            </header>
+            <div class="stack" id="quizWrap"></div>
+            <div class="hint" id="quizScore" aria-live="polite"></div>
+          </section>
+        </section>
+
+        <!-- STUDY (existing dashboard) -->
+        <section class="page" id="page-study" data-page="study" aria-labelledby="studyTitle">
+          <div class="grid">
+            <section class="panel" aria-label="Pomodoro timer">
+              <header class="panel-header">
+                <div>
+                  <h2 id="studyTitle">Study Dashboard</h2>
+                  <div class="hint">Pomodoro timer + tasks. Keep it simple.</div>
+                </div>
+                <div class="seg" role="group" aria-label="Timer mode">
+                  <button type="button" id="modeFocus" aria-pressed="true">Focus</button>
+                  <button type="button" id="modeBreak" aria-pressed="false">Break</button>
+                </div>
+              </header>
+
+              <div class="timer-face" aria-live="polite">
+                <div class="pomodoro">
+                  <svg class="ring" width="160" height="160" aria-hidden="true">
+                    <circle class="bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress" cx="80" cy="80" r="70"></circle>
+                  </svg>
+                  <div class="time" id="timer">25:00</div>
+                </div>
+                <div class="hint" id="timerHint">Focus for 25 minutes.</div>
+              </div>
+
+              <div class="controls">
+                <button class="btn btn-primary" type="button" id="startPauseBtn">Start</button>
+                <button class="btn" type="button" id="resetBtn">Reset</button>
+                <button class="btn" type="button" id="skipBtn" title="Switch to the next session">Skip</button>
+              </div>
+
+              <div class="mode-row">
+                <label class="toggle" title="Ambient sound (placeholder)">
+                  <span>Ambient</span>
+                  <input id="ambientToggle" type="checkbox" />
+                </label>
+                <span class="hint" id="ambientHint">Off (placeholder)</span>
+                <span class="sr-only" id="ambientStatus" aria-live="polite"></span>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="To-do list">
+              <header class="panel-header">
+                <div>
+                  <h2>To‑do List</h2>
+                  <div class="hint">Small list. High focus.</div>
+                </div>
+                <button class="btn btn-danger" type="button" id="clearDoneBtn" title="Remove completed tasks">
+                  Clear done
+                </button>
+              </header>
+
+              <form class="todo-form" id="todoForm">
+                <div class="field">
+                  <input
+                    id="todoInput"
+                    type="text"
+                    inputmode="text"
+                    autocomplete="off"
+                    placeholder="Add a task (e.g. 10 practice questions)"
+                  />
+                </div>
+                <button class="btn btn-primary" type="submit">Add</button>
+              </form>
+
+              <ul class="todos" id="todoList" aria-label="Tasks"></ul>
+              <div class="hint" id="todoFooterHint" style="margin-top: 10px"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- NERO -->
+        <section class="page" id="page-nero" data-page="nero" aria-labelledby="neroTitle">
+          <section class="panel chat" aria-label="Nero chat">
+            <header class="panel-header">
+              <div>
+                <h2 id="neroTitle">Nero (AI Assistant)</h2>
+                <div class="hint">Motivation + study help only. No distractions.</div>
+              </div>
+              <button class="btn" type="button" id="clearChatBtn">Clear</button>
+            </header>
+
+            <div class="messages" id="messages" aria-label="Chat messages"></div>
+
+            <form class="chat-form" id="chatForm">
+              <textarea
+                id="chatInput"
+                placeholder="Ask for help: explain a concept, plan a session, or get a quick pep talk…"
+                aria-label="Message Nero"
+              ></textarea>
+              <button class="btn btn-primary" type="submit">Send</button>
+            </form>
+          </section>
+        </section>
+
+        <!-- PROFILE -->
+        <section class="page" id="page-profile" data-page="profile" aria-labelledby="profileTitle">
+          <div class="grid">
+            <section class="panel" aria-label="User profile">
+              <header class="panel-header">
+                <div>
+                  <h2 id="profileTitle">User Profile</h2>
+                  <div class="hint">Mock Google/Microsoft login for per-user storage.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <div class="row">
+                  <button class="btn btn-primary" type="button" id="loginGoogleBtn">Sign in with Google</button>
+                  <button class="btn btn-primary" type="button" id="loginMicrosoftBtn">Sign in with Microsoft</button>
+                </div>
+                <div class="row">
+                  <button class="btn" type="button" id="logoutBtn">Sign out</button>
+                </div>
+                <div class="hint" id="userStatus" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="Progress">
+              <header class="panel-header">
+                <div>
+                  <h2>Progress</h2>
+                  <div class="hint">Documents + quiz scores saved per user.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <div class="output" id="profileProgress"></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
+
