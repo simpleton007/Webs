@@ -176,6 +176,17 @@ p {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+.card:hover {
+  transform: translateY(-4px);
+  transition: 0.2s ease;
+  border-color: rgba(0, 229, 255, 0.2);
+}
+
+button,
+.card {
+  transition: all 0.2s ease;
+}
+
 /* Map existing app panels to card style without changing HTML */
 .panel {
   background: rgba(255, 255, 255, 0.04);
