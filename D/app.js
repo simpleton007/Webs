@@ -70,6 +70,7 @@
   const timerKey = "swn.timerState";
 
   const timeDisplay = $("#timeDisplay");
+  const ringProgress = $(".pomodoro .progress");
   const timerHint = $("#timerHint");
   const startPauseBtn = $("#startPauseBtn");
   const resetBtn = $("#resetBtn");
@@ -110,6 +111,17 @@
     storage.set(timerKey, state);
   }
 
+  function renderRingProgress() {
+    if (!ringProgress) return;
+    const r = Number(ringProgress.getAttribute("r") || 0);
+    const c = 2 * Math.PI * r;
+    ringProgress.style.strokeDasharray = `${c}`;
+    const total = modeSeconds(state.mode);
+    const remaining = Math.max(0, Math.min(total, state.remainingSec));
+    const frac = total > 0 ? remaining / total : 0;
+    ringProgress.style.strokeDashoffset = `${c * (1 - frac)}`;
+  }
+
   function renderTimer() {
     timeDisplay.textContent = formatMMSS(state.remainingSec);
     const isFocus = state.mode === "focus";
@@ -119,6 +131,7 @@
       ? `Focus for ${defaults.focusMin} minutes.`
       : `Break for ${defaults.breakMin} minutes.`;
     startPauseBtn.textContent = state.running ? "Pause" : "Start";
+    renderRingProgress();
   }
 
   function stopTicker() {

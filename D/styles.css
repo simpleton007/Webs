@@ -573,6 +573,37 @@ h1 {
   place-items: center;
   padding: 16px 0 8px;
 }
+
+/* Pomodoro ring */
+.pomodoro {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: grid;
+  place-items: center;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.ring circle {
+  fill: none;
+  stroke-width: 10;
+}
+
+.ring .bg {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.ring .progress {
+  stroke: rgba(0, 229, 255, 0.85);
+  stroke-linecap: round;
+  filter: drop-shadow(0 10px 22px rgba(0, 229, 255, 0.12));
+  transition: stroke-dashoffset 280ms linear;
+}
 .time {
   font-variant-numeric: tabular-nums;
   font-size: clamp(2.5rem, 7vw, 3.2rem);

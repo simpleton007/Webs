@@ -110,7 +110,13 @@
               </header>
 
               <div class="timer-face" aria-live="polite">
-                <div class="time" id="timeDisplay">25:00</div>
+                <div class="pomodoro">
+                  <svg class="ring" width="160" height="160" aria-hidden="true">
+                    <circle class="bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress" cx="80" cy="80" r="70"></circle>
+                  </svg>
+                  <div class="time" id="timer">25:00</div>
+                </div>
                 <div class="hint" id="timerHint">Focus for 25 minutes.</div>
               </div>
 
