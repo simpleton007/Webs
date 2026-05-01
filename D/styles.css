@@ -302,7 +302,14 @@ textarea:focus {
 /* =========================
    FLASHCARDS (compat)
 ========================= */
+.flashcard {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
 .card-inner {
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
   width: 100%;
   height: 100%;
 }
@@ -311,6 +318,7 @@ textarea:focus {
 }
 .front,
 .back {
+  position: absolute;
   backface-visibility: hidden;
 }
 .back {
