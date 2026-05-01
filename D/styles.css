@@ -1,3 +1,6 @@
+/* =========================
+   THEME TOKENS
+========================= */
 :root {
   --bg: #070c12;
   --bg2: #071018;
@@ -19,8 +22,14 @@
   --navH: 68px;
 }
 
+/* =========================
+   BASE RESET
+========================= */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 html,
@@ -29,14 +38,10 @@ body {
 }
 
 body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial,
-    sans-serif;
-  color: var(--text);
-  background: radial-gradient(1100px 700px at 20% -10%, rgba(38, 247, 199, 0.14), transparent 55%),
-    radial-gradient(900px 600px at 90% 10%, rgba(44, 255, 106, 0.1), transparent 55%),
-    linear-gradient(180deg, var(--bg2), var(--bg));
-  line-height: 1.55;
+  background: #0b0f17;
+  color: #e6eaf2;
+  line-height: 1.6;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -51,9 +56,206 @@ input {
   font: inherit;
 }
 
+/* =========================
+   GLOBAL LAYOUT
+========================= */
 .container {
-  width: min(100% - 2rem, var(--container));
+  width: min(1100px, 92%);
   margin: 0 auto;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f5f7ff;
+}
+
+p {
+  color: #a9b2c7;
+}
+
+/* Preserve existing muted text look in app hints */
+.hint,
+.sub,
+.mini,
+.brand-sub {
+  color: #a9b2c7;
+}
+
+/* =========================
+   HERO SECTION (optional)
+========================= */
+/* Keep existing hero layout; these are safe additions. */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  max-width: 500px;
+  margin-bottom: 24px;
+}
+
+/* =========================
+   BUTTONS (base)
+========================= */
+.btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00e5ff, #00ffa3);
+  color: #0b0f17;
+  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.15);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 229, 255, 0.25);
+}
+
+/* =========================
+   CARDS (DASHBOARD UI)
+========================= */
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Map existing app panels to card style without changing HTML */
+.panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   GRID LAYOUT
+========================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* =========================
+   INPUTS (TODO / CHAT)
+========================= */
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #e6eaf2;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+}
+
+/* =========================
+   CHAT UI (NERO)
+========================= */
+/* Your markup uses .messages and .bubble; add aliases for .message/.bot */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 12px 14px;
+  border-radius: 14px;
+  max-width: 80%;
+  font-size: 14px;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #00e5ff, #00ffa3);
+  color: #0b0f17;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Map existing bubbles to the message palette */
+.bubble.user {
+  background: linear-gradient(135deg, #00e5ff, #00ffa3);
+  color: #0b0f17;
+}
+
+.bubble.nero {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   TIMER DISPLAY
+========================= */
+.timer {
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0;
+  letter-spacing: 2px;
+}
+
+/* Map existing timer element */
+.time {
+  letter-spacing: 2px;
+}
+
+/* =========================
+   SCROLLBAR (OPTIONAL POLISH)
+========================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .skip {
