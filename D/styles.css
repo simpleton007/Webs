@@ -299,6 +299,24 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* =========================
+   FLASHCARDS (compat)
+========================= */
+.card-inner {
+  width: 100%;
+  height: 100%;
+}
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+.front,
+.back {
+  backface-visibility: hidden;
+}
+.back {
+  transform: rotateY(180deg);
+}
+
 .skip {
   position: absolute;
   left: -999px;

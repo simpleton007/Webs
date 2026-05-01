@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./app.js" defer></script>
+    <script type="module" src="./js/main.js"></script>
   </head>
 
   <body>
@@ -32,8 +32,12 @@
 
         <nav class="nav" aria-label="Primary">
           <a class="chip" href="#/home" data-nav="home">Home</a>
-          <a class="chip" href="#/study" data-nav="study">Study</a>
+          <a class="chip" href="#/upload" data-nav="upload">Upload</a>
+          <a class="chip" href="#/output" data-nav="output">Output</a>
+          <a class="chip" href="#/flashcards" data-nav="flashcards">Flashcards</a>
+          <a class="chip" href="#/quiz" data-nav="quiz">Quiz</a>
           <a class="chip" href="#/nero" data-nav="nero">Nero</a>
+          <a class="chip" href="#/profile" data-nav="profile">Profile</a>
         </nav>
 
         <div class="right-actions">
@@ -52,7 +56,10 @@
           <div class="hero">
             <h1 id="homeTitle">STUDY WITH NERO!</h1>
             <p>Your focus companion for deep work sessions.</p>
-            <a class="btn btn-primary" href="#/study" id="startStudyingBtn">Start Studying</a>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#/upload" id="startStudyingBtn">Upload Document</a>
+              <a class="btn" href="#/study">Open Dashboard</a>
+            </div>
           </div>
 
           <div class="grid">
@@ -75,7 +82,124 @@
           </div>
         </section>
 
-        <!-- STUDY -->
+        <!-- UPLOAD -->
+        <section class="page" id="page-upload" data-page="upload" aria-labelledby="uploadTitle">
+          <div class="grid">
+            <section class="panel" aria-label="Upload document">
+              <header class="panel-header">
+                <div>
+                  <h2 id="uploadTitle">Upload Document</h2>
+                  <div class="hint">PDF, DOCX, or TXT. Extract → generate outputs.</div>
+                </div>
+              </header>
+
+              <div class="stack">
+                <input id="docFile" type="file" accept=".pdf,.docx,.txt,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                <div class="row">
+                  <button class="btn btn-primary" type="button" id="processDocBtn">Process</button>
+                  <button class="btn" type="button" id="clearDocBtn">Clear</button>
+                </div>
+                <div class="hint" id="uploadStatus" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="Recent documents">
+              <header class="panel-header">
+                <div>
+                  <h2>Documents</h2>
+                  <div class="hint">Saved per user (mock login supported).</div>
+                </div>
+              </header>
+              <ul class="list" id="docList" aria-label="Uploaded documents"></ul>
+            </section>
+          </div>
+        </section>
+
+        <!-- OUTPUT -->
+        <section class="page" id="page-output" data-page="output" aria-labelledby="outputTitle">
+          <div class="grid">
+            <section class="panel" aria-label="Study output">
+              <header class="panel-header">
+                <div>
+                  <h2 id="outputTitle">Study Output</h2>
+                  <div class="hint">Summary + key points for the selected document.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <div class="pill-row">
+                  <button class="btn" type="button" data-output-tab="summary">Summary</button>
+                  <button class="btn" type="button" data-output-tab="points">Key points</button>
+                </div>
+                <div class="output" id="outputSummary"></div>
+                <div class="output" id="outputPoints" hidden></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="Actions">
+              <header class="panel-header">
+                <div>
+                  <h2>Actions</h2>
+                  <div class="hint">Build flashcards and quiz from this doc.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <button class="btn btn-primary" type="button" id="goFlashcardsBtn">Open Flashcards</button>
+                <button class="btn btn-primary" type="button" id="goQuizBtn">Open Quiz</button>
+                <div class="hint" id="activeDocHint"></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- FLASHCARDS -->
+        <section class="page" id="page-flashcards" data-page="flashcards" aria-labelledby="flashcardsTitle">
+          <section class="panel" aria-label="Flashcards viewer">
+            <header class="panel-header">
+              <div>
+                <h2 id="flashcardsTitle">Flashcards Viewer</h2>
+                <div class="hint">Click to flip. Use next/previous.</div>
+              </div>
+              <div class="row">
+                <button class="btn" type="button" id="prevCardBtn">Prev</button>
+                <button class="btn" type="button" id="nextCardBtn">Next</button>
+              </div>
+            </header>
+            <div class="flashcard-wrap">
+              <!-- Compatibility with requested snippet -->
+              <div id="flashcard" class="sr-only"></div>
+              <button class="flashcard" type="button" id="flashcardBtn" aria-label="Flashcard (click to flip)">
+                <div class="flashcard-inner" id="flashcardInner">
+                  <div class="flashcard-face front">
+                    <div class="kicker">Question</div>
+                    <div class="fc-text" id="fcQ"></div>
+                  </div>
+                  <div class="flashcard-face back">
+                    <div class="kicker">Answer</div>
+                    <div class="fc-text" id="fcA"></div>
+                  </div>
+                </div>
+              </button>
+              <div class="hint" id="flashcardMeta"></div>
+            </div>
+          </section>
+        </section>
+
+        <!-- QUIZ -->
+        <section class="page" id="page-quiz" data-page="quiz" aria-labelledby="quizTitle">
+          <section class="panel" aria-label="Quiz">
+            <header class="panel-header">
+              <div>
+                <h2 id="quizTitle">Quiz Section</h2>
+                <div class="hint">5–10 multiple choice questions.</div>
+              </div>
+              <button class="btn" type="button" id="resetQuizBtn">Reset</button>
+            </header>
+            <div class="stack" id="quizWrap"></div>
+            <div class="hint" id="quizScore" aria-live="polite"></div>
+          </section>
+        </section>
+
+        <!-- STUDY (existing dashboard) -->
         <section class="page" id="page-study" data-page="study" aria-labelledby="studyTitle">
           <div class="grid">
             <section class="panel" aria-label="Pomodoro timer">
@@ -169,6 +293,42 @@
               <button class="btn btn-primary" type="submit">Send</button>
             </form>
           </section>
+        </section>
+
+        <!-- PROFILE -->
+        <section class="page" id="page-profile" data-page="profile" aria-labelledby="profileTitle">
+          <div class="grid">
+            <section class="panel" aria-label="User profile">
+              <header class="panel-header">
+                <div>
+                  <h2 id="profileTitle">User Profile</h2>
+                  <div class="hint">Mock Google/Microsoft login for per-user storage.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <div class="row">
+                  <button class="btn btn-primary" type="button" id="loginGoogleBtn">Sign in with Google</button>
+                  <button class="btn btn-primary" type="button" id="loginMicrosoftBtn">Sign in with Microsoft</button>
+                </div>
+                <div class="row">
+                  <button class="btn" type="button" id="logoutBtn">Sign out</button>
+                </div>
+                <div class="hint" id="userStatus" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-label="Progress">
+              <header class="panel-header">
+                <div>
+                  <h2>Progress</h2>
+                  <div class="hint">Documents + quiz scores saved per user.</div>
+                </div>
+              </header>
+              <div class="stack">
+                <div class="output" id="profileProgress"></div>
+              </div>
+            </section>
+          </div>
         </section>
       </div>
     </main>
