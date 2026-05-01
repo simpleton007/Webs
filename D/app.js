@@ -69,8 +69,9 @@
   const defaults = { focusMin: 25, breakMin: 5 };
   const timerKey = "swn.timerState";
 
-  const timeDisplay = $("#timeDisplay");
-  const ringProgress = $(".pomodoro .progress");
+  // Matches the user-provided snippet/markup: #timer and .progress
+  const timerEl = document.getElementById("timer");
+  const ringProgress = document.querySelector(".progress");
   const timerHint = $("#timerHint");
   const startPauseBtn = $("#startPauseBtn");
   const resetBtn = $("#resetBtn");
@@ -113,17 +114,16 @@
 
   function renderRingProgress() {
     if (!ringProgress) return;
-    const r = Number(ringProgress.getAttribute("r") || 0);
-    const c = 2 * Math.PI * r;
-    ringProgress.style.strokeDasharray = `${c}`;
+    // The requested CSS uses a fixed dasharray of 440.
+    const DASH = 440;
     const total = modeSeconds(state.mode);
     const remaining = Math.max(0, Math.min(total, state.remainingSec));
-    const frac = total > 0 ? remaining / total : 0;
-    ringProgress.style.strokeDashoffset = `${c * (1 - frac)}`;
+    const progress = total > 0 ? (remaining / total) * DASH : 0;
+    ringProgress.style.strokeDashoffset = String(DASH - progress);
   }
 
   function renderTimer() {
-    timeDisplay.textContent = formatMMSS(state.remainingSec);
+    if (timerEl) timerEl.textContent = formatMMSS(state.remainingSec);
     const isFocus = state.mode === "focus";
     modeFocusBtn.setAttribute("aria-pressed", String(isFocus));
     modeBreakBtn.setAttribute("aria-pressed", String(!isFocus));
